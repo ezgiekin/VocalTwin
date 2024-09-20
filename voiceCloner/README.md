@@ -19,8 +19,6 @@ cd Voice-Cloning-App/voiceCloner
 
 pip install -r requirements.txt
 
-python manage.py migrate
-
 python manage.py runserver
 
 API Documentation
