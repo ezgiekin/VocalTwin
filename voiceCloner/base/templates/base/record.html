@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocal Twin</title>
+    <link rel="stylesheet" href="{% static 'base/style.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'base/favicon.ico' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    
+<div class="content-wrapper">
+
+    {% if user.is_authenticated %}
+    <!-- Display UI elements based on user type -->
+    <div class="left-column">
+        <div class="logo-container">
+            <img src="{% static 'base/logo.png' %}" alt="Voice Cloner Logo" id="logo">
+        </div>
+        <button id="start">Start Recording</button>
+        <button id="stop" disabled>Stop Recording</button>
+        <audio id="player" controls></audio>
+      
+        <div class="form-container">
+            <form id="voiceForm" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="gender">Gender:</label>
+                <input type="text" id="gender" name="gender" required>
+
+                <label for="uploaded_audio">If You Don't Want to Record, Upload Audio File:</label>
+                <input type="file" id="uploaded_audio" name="uploaded_audio">
+
+            </form>
+        </div>
+        <button id="upload">Upload</button>
+        <a href="{% url 'base:logout' %}"><button id="logout">Logout</button></a>
+    </div>
+
+    <div class="right-column">
+        <h1>Previous Recordings</h1>
+        <div class="search-container">
+            <i class="search-icon fas fa-search"></i>
+            <input type="text" id="recordSearcher" onkeyup="myFunction()" placeholder="Search for records...">
+        </div>
+        <nav>
+            <div class="scrollable-table">
+                <table id="recordTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Gender</th>
+                            <th>Current Record Number</th>
+                            <th>Add New Record</th>
+                            {% if user.is_admin %}
+                            <th>Clone</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for record in records %}
+                        <tr>
+                            <td>{{ record.name }}</td>
+                            <td>{{ record.gender }}</td>
+                            <td>{{ record.audio_file_count }}</td>
+                            <td>
+                                <a href="{% url 'base:add_record' id=record.id %}"><button id="add_record">Add Record</button></a>
+                            </td>
+                            {% if user.is_admin %}
+                            <td>
+                                <form action="{% url 'base:clone' id=record.id %}" method="get">
+                                    <button class="btn btn-danger" type="submit">Clone Voice</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="{% url 'base:edit' id=record.id %}" method="get">
+                                    <button class="btn btn-danger" type="submit">Edit</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="{% url 'base:delete_object' id=record.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button class="btn btn-danger" type="submit">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </button>
+                                </form>
+                            </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </nav>
+    </div>
+
+    {% else %}
+    <!-- Display UI elements for non-authenticated users -->
+    <div class="right-column">
+        <h1>Previous Recordings</h1>
+        <div class="search-container">
+            <i class="search-icon fas fa-search"></i>
+            <input type="text" id="recordSearcher" onkeyup="myFunction()" placeholder="Search for records...">
+        </div>
+        <nav>
+            <div class="scrollable-table">
+                <table id="recordTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Gender</th>
+                            <th>Current Record Number</th>
+                            <th>Add New Record</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for record in records %}
+                        <tr>
+                            <td>{{ record.name }}</td>
+                            <td>{{ record.gender }}</td>
+                            <td>{{ record.audio_file_count }}</td>
+                            <td>
+                                <a href="{% url 'base:add_record' id=record.id %}"><button id="add_record">Add Record</button></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </nav>
+        <a href="{% url 'base:logout' %}"><button id="logout">Logout</button></a>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Include necessary scripts -->
+<script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+<script src="{% static 'base/adminscript.js' %}"></script>
+
+</body>
+</html>

@@ -1,0 +1,193 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    background-color: #f5f5f5; /* Softer background */
+    color: #333;
+}
+
+.search-container {
+    position: relative;
+    display: inline-block;
+}
+
+.search-icon {
+    position: absolute;
+    top: 40%;
+    left: 10px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #bbb; /* Lighter shade for icon */
+}
+
+#logo {
+    width: 260px;
+    height: auto;
+    margin-right: 20px;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+
+#recordSearcher {
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+    border-radius: 8px; /* Rounded corners */
+    margin-bottom: 12px;
+    box-sizing: border-box;
+    background-color: #fff;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.scrollable-table {
+    height: 450px;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05); /* Modern shadow */
+}
+
+.scrollable-table > .table {
+    width: 100%;
+}
+
+.content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Clean card style */
+}
+
+.left-column, .right-column {
+    box-sizing: border-box;
+}
+
+.left-column {
+    width: 23%;
+}
+
+.right-column {
+    width: 73%;
+}
+
+h1 {
+    text-align: left;
+    font-weight: 700;
+    color: #333;
+}
+
+button {
+    margin: 5px 0;
+    padding: 12px 20px;
+    font-size: 16px;
+    width: 100%;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 8px; /* Rounded button */
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle button shadow */
+}
+
+button:hover {
+    background-color: #0056b3;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+}
+
+button:disabled {
+    background-color: #d6d6d6;
+    color: #a1a1a1;
+    cursor: not-allowed;
+}
+
+.form-container {
+    margin-top: 20px;
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-container label {
+    margin: 5px 0;
+    font-weight: 500; /* Modern label weight */
+}
+
+.form-container input {
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.05); /* Inner shadow */
+    box-sizing: border-box;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 16px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+    background-color: #fafafa;
+    transition: background-color 0.3s ease;
+}
+
+th {
+    background-color: #f4f4f4;
+    color: #333;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+td {
+    background-color: #fff;
+}
+
+td:hover {
+    background-color: #f9f9f9; /* Hover effect on table cells */
+}
+
+@media (max-width: 768px) {
+    .content-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .left-column, .right-column {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    table {
+        display: block;
+        width: 100%;
+        overflow-x: auto; /* Allow horizontal scrolling on small screens */
+    }
+
+    th, td {
+        padding: 8px;
+        white-space: nowrap;
+    }
+}
